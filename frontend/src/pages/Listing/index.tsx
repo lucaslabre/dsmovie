@@ -21,38 +21,21 @@ function Listing() {
         empty: true
     });
 
-    // FORMA CORRETA
     useEffect(() => {
         axios.get(`${BASE_URL}/movies?size=12&page=${pageNumber}&sort=id`)
             .then(response => {
                 const data = response.data as MoviePage;
                 setPage(data);
-                // TESTES
-                // console.log(data);
-                // setPageNumber(data.number);
             });
     }, [pageNumber]);
 
-    // FORMA ERRADA
-    // axios.get(`${BASE_URL}/movies?size=12&page=1`)
-    //     .then(response => {
-    //         const data = response.data as MoviePage;
-    //         setPageNumber(data.number);
-    //     });
-
-
-    const movie = {
-        id: 1,
-        image: "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg",
-        title: "The Witcher",
-        count: 2,
-        score: 4.5
+    const handlePageChange = (newPageNumber : number) => {
+        setPageNumber(newPageNumber);
     };
 
     return (
         <>
-            {/* <p>{pageNumber}</p> */}
-            <Pagination />
+            <Pagination page={page} onChange={handlePageChange} />
 
             <div className="container">
                 <div className="row">
@@ -62,21 +45,6 @@ function Listing() {
                             </div>
                         )
                     )}
-                    {/* <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                        <MovieCard movie={movie} />
-                    </div>
-                    <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                        <MovieCard movie={movie} />
-                    </div>
-                    <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                        <MovieCard movie={movie} />
-                    </div>
-                    <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                        <MovieCard movie={movie} />
-                    </div>
-                    <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                        <MovieCard movie={movie} />
-                    </div> */}
                 </div>
             </div>
 
